@@ -2,13 +2,12 @@ const port = '9000' || process.env.PORT
 const express = require("express")
 const app = express()
 const mongoose = require('mongoose');
-
-
 const Product = require('./src/producto/producto')
 const isPalindrome = require('./utils/isPalindrome')
+
 app.use(express.json())
 
-const db = await mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
+let db = mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then( (dbConnection) => {
@@ -48,11 +47,14 @@ app.get('/productos/busqueda', (req,res) => {
 })
 function afterwards(){
     if (require.main === module) {
-        app.listen(port,() => console.log(`PORT ${port}`))
+        app.listen(port,() => console.log(`PORT ${port}`)).then(db.disconnect())
     }
-    db.disconnect();
+    
 }
 
 
 
-module.exports.app = app
+module.exports ={
+    app,
+    db
+}

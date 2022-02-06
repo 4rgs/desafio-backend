@@ -1,6 +1,6 @@
 const res = require("express/lib/response");
 const request = require("supertest")
-const { app } = require("../../server")
+const { app,db } = require("../../server")
 
 describe('productos',() => {
     it('GET /productos retorna todos los productos', async () => {
@@ -55,7 +55,4 @@ describe('productos',() => {
         expect(response.body[0].price).toEqual(525834)
     })
     
-})
-afterAll(()=> { 
-    mongoose.disconnect()
 })

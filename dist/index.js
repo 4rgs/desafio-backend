@@ -109277,20 +109277,17 @@ const port = '9000' || 0
 const express = __nccwpck_require__(71204)
 const app = express()
 const mongoose = __nccwpck_require__(34740);
-
-
 const Product = __nccwpck_require__(60553)
 const isPalindrome = __nccwpck_require__(97621)
+
 app.use(express.json())
 
-mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
+let db = mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then( () => {
-
-    if (require.main === require.cache[eval('__filename')]) {
-      app.listen(port,() => console.log(`PORT ${port}`))
-    }
+}).then( (dbConnection) => {
+    db = dbConnection
+    afterwards()
     
 }).catch(err => {
     console.log('Failed to connect to MongoDB', err)
@@ -109323,10 +109320,19 @@ app.get('/productos/busqueda', (req,res) => {
             return res.status(400).json(err.message)
         })    
 })
+function afterwards(){
+    if (require.main === require.cache[eval('__filename')]) {
+        app.listen(port,() => console.log(`PORT ${port}`)).then(db.disconnect())
+    }
+    
+}
 
 
 
-module.exports.app = app
+module.exports ={
+    app,
+    db
+}
 
 /***/ }),
 
@@ -109729,7 +109735,7 @@ module.exports = JSON.parse('{"100":"Continue","101":"Switching Protocols","102"
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module used 'module' so it can't be inlined
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __nccwpck_require__(84512);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
