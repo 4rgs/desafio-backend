@@ -56,3 +56,6 @@ describe('productos',() => {
     })
     
 })
+afterAll(()=> { 
+    mongoose.disconnect()
+})

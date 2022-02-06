@@ -8,14 +8,12 @@ const Product = require('./src/producto/producto')
 const isPalindrome = require('./utils/isPalindrome')
 app.use(express.json())
 
-mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
+const db = await mongoose.connect(`mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then( () => {
-
-    if (require.main === module) {
-      app.listen(port,() => console.log(`PORT ${port}`))
-    }
+}).then( (dbConnection) => {
+    db = dbConnection
+    afterwards()
     
 }).catch(err => {
     console.log('Failed to connect to MongoDB', err)
@@ -48,6 +46,12 @@ app.get('/productos/busqueda', (req,res) => {
             return res.status(400).json(err.message)
         })    
 })
+function afterwards(){
+    if (require.main === module) {
+        app.listen(port,() => console.log(`PORT ${port}`))
+    }
+    db.disconnect();
+}
 
 
 
