@@ -27,17 +27,14 @@
     "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.0",
-    "mongodb-memory-server": "^8.3.0",
     "prettier": "^2.5.1",
     "supertest": "^6.2.2"
   },
   "dependencies": {
     "@vercel/ncc": "^0.33.1",
+    "mongodb-memory-server": "^6.9.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "mongoose": "^6.2.0"
-  },
-  "plugins": [
-    "@babel/plugin-syntax-top-level-await"
-  ]
+  }
 }
