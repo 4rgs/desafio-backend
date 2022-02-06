@@ -12,14 +12,14 @@ module.exports.getUri = async () => {
     return `mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`
 }
 
-module.exports.connect = async ({ uri }) => {
+module.exports.connect = async function ({ uri }) {
     const mongooseOpts = {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     }
 
     await mongoose.connect(uri, mongooseOpts)
-    
+
     mongoose.connection.once("open", () => {
         console.log(`MongoDB successfully connected to ${uri}`)
     })

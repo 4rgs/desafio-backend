@@ -24,7 +24,7 @@ app.get('/productos',(req,res) => {
         return res.status(200).json(products)
     })
     .catch(err => {
-        return res.status(420).json(err.message)
+        return res.status(400).json(err.message)
     })
 })
 app.get('/productos/busqueda', (req,res) => {
@@ -34,12 +34,18 @@ app.get('/productos/busqueda', (req,res) => {
         .then(products => {
             products.forEach(product => {
                 if((isPalindrome(product.id) && id !== undefined) || 
-                    (isPalindrome(product.brand) && brand !== undefined)|| 
+                    (isPalindrome(product.brand) && brand !== undefined && brand.length >= 3)|| 
                     (isPalindrome(product.description) && description !== undefined)){
                         product.price = product.price*0.5
                 }
             })
-            return res.status(200).json(products)
+            if((description !== undefined && description.length >= 3)||
+            (brand !== undefined && brand.length >= 3)||id !== undefined){
+                return res.status(200).json(products)
+            }else{
+                return res.status(400).json('criterio de busqueda debe tener almenos 3 caracteres')
+            }
+            
         })
         .catch(err => {
             return res.status(400).json(err.message)
