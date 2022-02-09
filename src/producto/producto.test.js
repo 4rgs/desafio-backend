@@ -18,17 +18,23 @@ afterAll(async () => {
     await closeDb()
 })
 
-describe('End Points productos',() => {
-    it('GET /productos retorna todos los productos', async () => {
+describe('Productos',() => {
+    it('GET /productos retorna todos los productos sin descuento', async () => {
         await request(app)
             .get('/productos')
             .set("Accept", "application/json")
             .expect("Content-Type", /json/)
             .expect(200);
     })
-    it('GET /productos/busqueda retorna un solo producto por ID', async () => {
+    it('GET /productos/busqueda retorna todos los productos con descuento', async () => {
         const response = await request(app)
             .get('/productos/busqueda')
+            .set("Content-Type", "application/json")
+        expect(response.statusCode).toEqual(200);
+    })
+    it('POST /productos/busqueda retorna un solo producto por ID', async () => {
+        const response = await request(app)
+            .post('/productos/busqueda')
             .send({
                 id: 1
             })
@@ -40,10 +46,10 @@ describe('End Points productos',() => {
         expect(response.body[0].image).toEqual(expect.any(String))
         expect(response.body[0].price).toEqual(expect.any(Number))
     })
-    it('GET /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo', async () => {
+    it('POST /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo', async () => {
 
         const response = await request(app)
-            .get('/productos/busqueda')
+            .post('/productos/busqueda')
             .send({
                 id: 181
             })
@@ -56,9 +62,9 @@ describe('End Points productos',() => {
         expect(response.body[0].price).toEqual(387861)
     })
     
-    it('GET /productos/busqueda retorna un producto sin descuento tras no ser palimdromo', async () => {
+    it('POST /productos/busqueda retorna un producto sin descuento tras no ser palimdromo', async () => {
         const response = await request(app)
-            .get('/productos/busqueda')
+            .post('/productos/busqueda')
             .send({
                 brand : 'fqqejoy'
             })
@@ -71,9 +77,9 @@ describe('End Points productos',() => {
         expect(response.body[0].image).toEqual(expect.any(String))
         expect(response.body[0].price).toEqual(525834)
     })
-    it('GET /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400', async() => {
+    it('POST /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400', async() => {
         const response = await request(app)
-            .get('/productos/busqueda')
+            .post('/productos/busqueda')
             .send({
                 brand:'ad'
             })
