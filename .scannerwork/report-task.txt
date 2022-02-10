@@ -1,7 +1,0 @@
-organization=spidohcl
-projectKey=SpidohCL_desafio-backend
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.26660
-dashboardUrl=https://sonarcloud.io/dashboard?id=SpidohCL_desafio-backend
-ceTaskId=AX7ktH-7X2VMPhURxX2E
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AX7ktH-7X2VMPhURxX2E
