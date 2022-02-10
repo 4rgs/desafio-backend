@@ -77,8 +77,11 @@ app.post('/productos/busqueda', async (req, res) => {
     let query
     if (!isNaN(body.query)) 
         query = { "id" : Number(body.query) }
-    else 
+    else {
+        body.query = String(body.query)
         query =  [{"brand":{ $regex: '.*' + body.query + '.*' }},{"description":{ $regex: '.*' + body.query + '.*' }}]
+    }
+        
     await Product.find().or(query)
         .then(products => {
             products.forEach(product => {
