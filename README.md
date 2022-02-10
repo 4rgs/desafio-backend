@@ -3,10 +3,7 @@
 
 
 
-Servicio API REST para el Desafio
-
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=SpidohCL_desafio-backend)](https://sonarcloud.io/summary/new_code?id=SpidohCL_desafio-backend)
-
+Servicio API REST para el Desafio [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SpidohCL_desafio-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=SpidohCL_desafio-frontend)
 
 ## API Reference
 
