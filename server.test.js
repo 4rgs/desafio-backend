@@ -13,7 +13,7 @@ afterAll(async () => {
 describe('server',() => {
     it('Mongo connect', async () => {
         try {
-            const uri = await getUri() 
+            const uri =  await getUri() 
             await connect({ uri })
             await closeDb()
         } catch (error) {

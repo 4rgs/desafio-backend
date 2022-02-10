@@ -3,8 +3,8 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const Product = require('./src/producto/producto')
-const isPalindrome = require('./utils/isPalindrome')
 const { connect, getUri } = require("./db/db")
+const applyDiscount = require("./utils/applyDiscount")
 
 const whitelist = ["http://localhost:3000"]
 
@@ -19,15 +19,6 @@ const corsOptions = {
         }
     },
     credentials: true,
-}
-const isValidInput = (body) => {
-    if ((body.description !== undefined && body.description.length >= 3) ||
-        (body.brand !== undefined && body.brand.length >= 3) ||
-        (body.id !== undefined)) {
-        return true
-    } else {
-        return false
-    }
 }
 
 app.use(cors(corsOptions))
@@ -54,16 +45,10 @@ app.get('/productos', (req, res) => {
         })
 })
 app.get('/productos/busqueda', (req, res) => {
-    let palindrome = false;
     Product.find()
         .then(products => {
             products.forEach(product => {
-                if (isPalindrome(String(product.id)) ||
-                    isPalindrome(product.brand) ||
-                    isPalindrome(product.description))
-                    palindrome = true
-                if (palindrome && isValidInput(product)) product.price = product.price * 0.5
-                palindrome = false;
+                product.price = applyDiscount(product)
             })
             return res.status(200).json(products)
         })
@@ -72,25 +57,17 @@ app.get('/productos/busqueda', (req, res) => {
         })
 })
 app.post('/productos/busqueda', async (req, res) => {
-    let palindrome = false;
     const body = req.body
     let query
     if (!isNaN(body.query)) 
         query = { "id" : Number(body.query) }
     else {
-        body.query = String(body.query)
-        query =  [{"brand":{ $regex: '.*' + body.query + '.*' }},{"description":{ $regex: '.*' + body.query + '.*' }}]
+        query =  [{"brand":{ $regex: '.*' + String(body.query) + '.*' }},{"description":{ $regex: '.*' + String(body.query) + '.*' }}]
     }
-        
     await Product.find().or(query)
         .then(products => {
             products.forEach(product => {
-                if (isPalindrome(String(product.id)) ||
-                    isPalindrome(product.brand) ||
-                    isPalindrome(product.description))
-                    palindrome = true
-                if (palindrome && isValidInput(product)) product.price = product.price * 0.5
-                palindrome = false;
+                product.price = applyDiscount(product)
             })
             if(Array.isArray(query)){
                 if(query[0].brand.$regex.length <= 6  || query[1].description.$regex.length <= 6) return res.status(400).json("criterio de busqueda debe ser de minimo 3 caracteres")     
