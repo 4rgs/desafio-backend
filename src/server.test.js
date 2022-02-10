@@ -1,6 +1,6 @@
 
 const { app } = require("./server")
-const { connect, getUri, closeDb } = require("./db/db")
+const { connect, getUri, closeDb } = require("../db/db")
 
 beforeAll(async () => {
     const uri = await getUri()

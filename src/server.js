@@ -2,9 +2,9 @@ const port = '9000' || process.env.PORT
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const Product = require('./src/producto/producto')
-const { connect, getUri } = require("./db/db")
-const applyDiscount = require("./utils/applyDiscount")
+const Product = require('./producto/producto')
+const { connect, getUri } = require("../db/db")
+const applyDiscount = require("../utils/applyDiscount")
 
 const whitelist = ["http://localhost:3000"]
 

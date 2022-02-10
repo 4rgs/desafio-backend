@@ -1,5 +1,5 @@
 const request = require("supertest")
-const { app } = require("../../server")
+const { app } = require("../server")
 const Product = require('./producto')
 const { connect, getUri, closeDb } = require("../../db/db")
 

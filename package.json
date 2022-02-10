@@ -2,9 +2,9 @@
   "name": "desafio-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "build": "ncc build server.js -o dist",
+    "build": "ncc build src/server.js -o dist",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|)\""

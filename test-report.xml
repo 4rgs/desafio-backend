@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/spids/desafio/desafio-backend/server.test.js">
-    <testCase name="server Mongo connect" duration="13"/>
+  <file path="/home/spids/desafio/desafio-backend/src/server.test.js">
+    <testCase name="server Mongo connect" duration="10"/>
     <testCase name="server Express server Listening" duration="0"/>
   </file>
   <file path="/home/spids/desafio/desafio-backend/src/producto/producto.test.js">
     <testCase name="Productos GET /productos retorna todos los productos sin descuento" duration="26"/>
-    <testCase name="Productos GET /productos/busqueda retorna todos los productos con descuento" duration="7"/>
-    <testCase name="Productos POST /productos/busqueda retorna un solo producto por ID" duration="11"/>
-    <testCase name="Productos POST /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo" duration="5"/>
-    <testCase name="Productos POST /productos/busqueda retorna un producto sin descuento tras no ser palimdromo" duration="4"/>
+    <testCase name="Productos GET /productos/busqueda retorna todos los productos con descuento" duration="9"/>
+    <testCase name="Productos POST /productos/busqueda retorna un solo producto por ID" duration="12"/>
+    <testCase name="Productos POST /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo" duration="4"/>
+    <testCase name="Productos POST /productos/busqueda retorna un producto sin descuento tras no ser palimdromo" duration="5"/>
     <testCase name="Productos POST /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400" duration="4"/>
   </file>
 </testExecutions>
