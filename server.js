@@ -8,6 +8,8 @@ const { connect, getUri } = require("./db/db")
 
 const whitelist = ["http://localhost:3000"]
 
+
+
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
