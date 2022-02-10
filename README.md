@@ -48,9 +48,6 @@ To deploy this proyecto first we need to deploy this repo and have Docker instal
    sudo make provision
 ```
 ```bash
-   sudo make database-docker-up
-```
-```bash
    cd ..
 ```
 Then we can deploy our service that will run on previous DATABASE
