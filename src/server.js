@@ -24,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use(express.json());
-
+app.disable("x-powered-by");
 
 (async () => {
     if (require.main === module) {
