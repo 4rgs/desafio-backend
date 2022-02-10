@@ -1,11 +1,5 @@
 module.exports = (string) => {
-    const len = string.length;
-
-    for (let i = 0; i < len / 2; i++) {
-
-        if (string[i] !== string[len - 1 - i]) {
-            return false;
-        }
-    }
-    return true;
+    var primeraMitad = string.replace(/[^0-9a-zA-Z]/g, '').toLowerCase();
+    var otraMitad = primeraMitad.split('').reverse().join('');
+    return otraMitad === primeraMitad;
 }  

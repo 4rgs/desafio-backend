@@ -18,6 +18,24 @@ const corsOptions = {
   },
   credentials: true,
 }
+const isValidInput = (body) =>{
+    if((body.description !== undefined && body.description.length >= 3)||
+        (body.brand !== undefined && body.brand.length >= 3)||
+        (body.id !== undefined)){
+        return true
+    }else{
+        return false
+    }
+} 
+const getQueryTipe = (body) => {
+    if(body.query.length < 3) return false;
+    if (!isNaN(body.query)) return { "id" : Number(body.query) }
+    else{
+        if(body.query.includes(' ')) return { "description": { $regex: '.*' + body.query + '.*' } }
+        else return { "brand": { $regex: '.*' + body.query + '.*' } }
+    }
+    
+}
 
 app.use(cors(corsOptions))
 
@@ -47,10 +65,11 @@ app.get('/productos/busqueda',(req,res) => {
     Product.find()
     .then(products => {
         products.forEach(product => {
-            if(isPalindrome(String(product.id))) palindrome = true
-            if(isPalindrome(product.brand)) palindrome = true
-            if(isPalindrome(product.description)) palindrome = true
-            if(palindrome) product.price = product.price*0.5
+            if(isPalindrome(String(product.id)) ||
+                    isPalindrome(product.brand)||
+                    isPalindrome(product.description)) 
+                    palindrome = true
+            if(palindrome && isValidInput(product)) product.price = product.price*0.5
             palindrome = false;
         })
         
@@ -63,18 +82,18 @@ app.get('/productos/busqueda',(req,res) => {
 app.post('/productos/busqueda', (req,res) => {
     let palindrome = false;
     const body = req.body
-    const {id,description,brand} = body 
-    Product.find(req.body)
+    let regex = getQueryTipe(body)
+    Product.find(regex)
         .then(products => {
             products.forEach(product => {
-                if(isPalindrome(String(product.id)) && id !== undefined) palindrome = true
-                if(isPalindrome(product.brand) && brand !== undefined && brand.length >= 3) palindrome = true
-                if(isPalindrome(product.description) && description !== undefined) palindrome = true
-                if(palindrome) product.price = product.price*0.5
+                if(isPalindrome(String(product.id)) ||
+                    isPalindrome(product.brand)||
+                    isPalindrome(product.description)) 
+                    palindrome = true
+                if(palindrome && isValidInput(product)) product.price = product.price*0.5
                 palindrome = false;
             })
-            if((description !== undefined && description.length >= 3)||
-            (brand !== undefined && brand.length >= 3)||id !== undefined){
+            if(regex !== false){
                 return res.status(200).json(products)
             }else{
                 return res.status(400).json('criterio de busqueda debe tener almenos 3 caracteres')

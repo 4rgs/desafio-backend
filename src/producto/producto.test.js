@@ -36,9 +36,10 @@ describe('Productos',() => {
         const response = await request(app)
             .post('/productos/busqueda')
             .send({
-                id: 1
+                query: 1
             })
             .set("Accept", "application/json");
+        expect(response.body.length).toEqual(1)
         expect(response.body[0]._id).toEqual(expect.any(String))
         expect(response.body[0].id).toEqual(expect.any(Number))
         expect(response.body[0].brand).toEqual(expect.any(String))
@@ -51,7 +52,7 @@ describe('Productos',() => {
         const response = await request(app)
             .post('/productos/busqueda')
             .send({
-                id: 181
+                query: "181"
             })
             .set("Accept", "application/json");
         expect(response.body[0]._id).toEqual(expect.any(String))
@@ -66,7 +67,7 @@ describe('Productos',() => {
         const response = await request(app)
             .post('/productos/busqueda')
             .send({
-                brand : 'fqqejoy'
+                query : 'thyh mpzxgwnw'
             })
             .set("Accept", "application/json");
         expect(response.statusCode).toEqual(200)
@@ -81,7 +82,7 @@ describe('Productos',() => {
         const response = await request(app)
             .post('/productos/busqueda')
             .send({
-                brand:'ad'
+                query:'ad'
             })
             .set("Accept", "application/json")
         expect(response.statusCode).toEqual(400)
