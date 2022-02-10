@@ -3,7 +3,7 @@ const scanner = require('sonarqube-scanner');
 scanner(
   {
     serverUrl : 'https://sonarcloud.io',
-    token : "a03b319b016a8ed95acf3ed7b2a6eb1aa9400641",
+    token : "33ef0579e240870994fad29350997cb15ed30ec1",
     options: {
       'sonar.projectName': 'SpidohCL_desafio-backend',
       'sonar.projectDescription': 'Desafio de desarrollo. Backend',
