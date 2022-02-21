@@ -5,8 +5,9 @@ const cors = require('cors')
 const Product = require('./producto/producto')
 const { connect, getUri } = require('../db/db')
 const applyDiscount = require('../utils/applyDiscount')
+require('dotenv').config()
 
-const whitelist = ['http://192.168.1.83:3000','https://www.spids.cl','http://localhost:3000']
+const whitelist = process.env.WHITE_LIST_CORS
 
 const corsOptions = {
   origin: function (origin, callback) {
