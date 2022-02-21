@@ -36,33 +36,34 @@ Servicio API REST para el Desafio [![Quality Gate Status](https://sonarcloud.io/
 
 To deploy this proyecto first we need to deploy this repo and have Docker installed:
 ```bash
-   git clone https://github.com/walmartdigital/products-db
+git clone https://github.com/walmartdigital/products-db
 ```
 ```bash
-   cd products-db
+cd products-db
 ```
 ```bash
-   sudo make database-docker-up
+sudo make database-docker-up
 ```
 ```bash
-   sudo make provision
+sudo make database-provision
+
 ```
 ```bash
-   cd ..
+cd ..
 ```
 Then we can deploy our service that will run on previous DATABASE
 
 ```bash
-  git clone https://github.com/SpidohCL/desafio-backend
+git clone https://github.com/SpidohCL/desafio-backend
 ```
 ```bash
-   cd desafio-backend
+cd desafio-backend
 ```
 ```bash
-  npm install
+npm install
 ```
 ```bash
-  npm run start
+npm run start
 ```
 
 
