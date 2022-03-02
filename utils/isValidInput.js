@@ -1,5 +1,9 @@
-module.exports = (body) => {
-  return ((body.description !== undefined && body.description.length >= 3) || 
-          (body.brand !== undefined && body.brand.length >= 3) || 
-          body.id !== undefined )
+module.exports = (query) => {
+  if (Array.isArray(query)) {
+    if (
+      query[0].brand.$regex.length <= 6 ||
+      query[1].description.$regex.length <= 6
+    ) return false
+  }
+  return true
 }

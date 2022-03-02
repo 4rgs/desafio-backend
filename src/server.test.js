@@ -10,6 +10,12 @@ afterAll(async () => {
   await closeDb()
 })
 describe('server', () => {
+  
+  it('Express server Listening', async () => {
+    app.on('listened', function () {
+      return true
+    })
+  })
   it('Mongo connect', async () => {
     try {
       const uri = await getUri()
@@ -18,10 +24,5 @@ describe('server', () => {
     } catch (error) {
       return error.message
     }
-  })
-  it('Express server Listening', async () => {
-    app.on('listened', function () {
-      return true
-    })
   })
 })

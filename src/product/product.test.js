@@ -1,32 +1,32 @@
 const request = require('supertest')
 const { app } = require('../server')
-const Product = require('./producto')
+const Product = require('./product')
 const { connect, getUri, closeDb } = require('../../db/db')
 
+let seed1 = new Product({
+  id: 1,
+  brand: 'asd',
+  description: 'asdasd',
+  image: 'asdasdas',
+  price: 12312,
+})
+let seed2 = new Product({
+  id: 181,
+  brand: 'rvblsml',
+  description: 'goeyxg nbowu',
+  image: 'www.lider.cl/catalogo/images/toysIcon.svg',
+  price: 775722,
+})
+let seed3 = new Product({
+  id: 16,
+  brand: 'fqqejoy',
+  description: 'thyh mpzxgwnw',
+  image: 'www.lider.cl/catalogo/images/gamesIcon.svg',
+  price: 525834,
+})
 beforeAll(async () => {
   const uri = await getUri()
   await connect({ uri })
-  let seed1 = new Product({
-    id: 1,
-    brand: 'asd',
-    description: 'asdasd',
-    image: 'asdasdas',
-    price: 12312,
-  })
-  let seed2 = new Product({
-    id: 181,
-    brand: 'rvblsml',
-    description: 'goeyxg nbowu',
-    image: 'www.lider.cl/catalogo/images/toysIcon.svg',
-    price: 775722,
-  })
-  let seed3 = new Product({
-    id: 16,
-    brand: 'fqqejoy',
-    description: 'thyh mpzxgwnw',
-    image: 'www.lider.cl/catalogo/images/gamesIcon.svg',
-    price: 525834,
-  })
   await seed1.save()
   await seed2.save()
   await seed3.save()
@@ -77,7 +77,7 @@ describe('Productos', () => {
     expect(response.body[0].brand).toEqual(expect.any(String))
     expect(response.body[0].description).toEqual(expect.any(String))
     expect(response.body[0].image).toEqual(expect.any(String))
-    expect(response.body[0].price).toEqual(387861)
+    expect(response.body[0].price).toEqual(seed2.price/2)
   })
 
   it('POST /productos/busqueda retorna un producto sin descuento tras no ser palimdromo', async () => {
@@ -93,7 +93,7 @@ describe('Productos', () => {
     expect(response.body[0].brand).toEqual(expect.any(String))
     expect(response.body[0].description).toEqual(expect.any(String))
     expect(response.body[0].image).toEqual(expect.any(String))
-    expect(response.body[0].price).toEqual(525834)
+    expect(response.body[0].price).toEqual(seed3.price)
   })
   it('POST /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400', async () => {
     const response = await request(app)

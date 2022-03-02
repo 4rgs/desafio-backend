@@ -3,16 +3,17 @@ const port = '9000' || process.env.PORT
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const Product = require('./producto/producto')
-const { connect, getUri, closeDb } = require('../db/db')
+const Product = require('./product/product')
+const { connect, getUri } = require('../db/db')
 const applyDiscount = require('../utils/applyDiscount')
+const isValidInput = require('../utils/isValidInput')
 
 
 const whitelist = process.env.WHITE_LIST_CORS
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
+    if (!origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -62,16 +63,9 @@ app.post('/productos/busqueda', async (req, res) => {
       products.forEach((product) => {
         product.price = applyDiscount(product)
       })
-      if (Array.isArray(query)) {
-        if (
-          query[0].brand.$regex.length <= 6 ||
-          query[1].description.$regex.length <= 6
-        )
-          return res
-            .status(400)
-            .json('criterio de busqueda debe ser de minimo 3 caracteres')
-      }
-      return res.status(200).json(products)
+      if(isValidInput(query)) return res.status(200).json(products)
+      else return res.status(400).json('criteria de busqueda debe tener almenos 3 caracteres')
+      
     })
     .catch((err) => {
       return res.status(400).json(err.message)
@@ -81,11 +75,9 @@ app.post('/productos/busqueda', async (req, res) => {
 ;(async () => {
   if(process.env.NODE_ENV === 'test'){
     const uri = await getUri()
-    await connect({ uri }).then(
-      app.listen(function(){
-        console.log("Express server listening on uri " + uri);
-      })
-    )
+    await connect({ uri }).then(() => {
+      console.log("Express server is down, running on test mode");
+    })
   }
   if (require.main === module) {
     const uri = await getUri()
