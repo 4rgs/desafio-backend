@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "build": "ncc build src/server.js -o dist",
-    "test": "jest --watchAll --coverage",
+    "test": "jest --coverage",
     "lint": "eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|)\""
   },
