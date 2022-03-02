@@ -104,4 +104,14 @@ describe('Productos', () => {
       .set('Accept', 'application/json')
     expect(response.statusCode).toEqual(400)
   })
+  it('POST /productos retorna error 404 method not allowed', async () => {
+    const response = await request(app)
+      .post('/productos')
+      .send({
+        query: 'ad',
+      })
+      .set('Accept', 'application/json')
+    expect(response.statusCode).toEqual(404)
+    
+  })
 })

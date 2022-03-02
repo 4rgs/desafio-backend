@@ -1,11 +1,12 @@
+require('dotenv').config()
 const port = '9000' || process.env.PORT
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const Product = require('./producto/producto')
-const { connect, getUri } = require('../db/db')
+const { connect, getUri, closeDb } = require('../db/db')
 const applyDiscount = require('../utils/applyDiscount')
-require('dotenv').config()
+
 
 const whitelist = process.env.WHITE_LIST_CORS
 
@@ -78,6 +79,14 @@ app.post('/productos/busqueda', async (req, res) => {
 })
 
 ;(async () => {
+  if(process.env.NODE_ENV === 'test'){
+    const uri = await getUri()
+    await connect({ uri }).then(
+      app.listen(function(){
+        console.log("Express server listening on uri " + uri);
+      })
+    )
+  }
   if (require.main === module) {
     const uri = await getUri()
     await connect({ uri }).then(

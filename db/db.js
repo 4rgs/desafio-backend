@@ -8,8 +8,7 @@ const mongoServer = new MongoMemoryServer()
 module.exports.getUri = async () => {
   if (process.env.NODE_ENV === 'test') {
     return await mongoServer.getUri()
-  }
-  return `mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin`
+  }else return `mongodb://productListUser:productListPassword@127.0.0.1:27017/promotions?authSource=admin` //PRODUCTIVO
 }
 
 module.exports.connect = async function ({ uri }) {
@@ -20,8 +19,8 @@ module.exports.connect = async function ({ uri }) {
 
   await mongoose.connect(uri, mongooseOpts)
 
-  mongoose.connection.once('open', () => {
-    console.log(`MongoDB successfully connected to ${uri}`)
+  mongoose.connection.once('open', (err, resp) => {
+    console.log(`MongoDB successfully connected to ${uri} with response ${resp}`)
   })
 }
 module.exports.closeDb = async () => {
