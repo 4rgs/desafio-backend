@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
   <file path="/home/spids/desafio/desafio-backend/src/server.test.js">
-    <testCase name="server Express server Listening" duration="0"/>
-    <testCase name="server Mongo connect" duration="13"/>
+    <testCase name="server Express server Listening" duration="1"/>
+    <testCase name="server Mongo connect" duration="20"/>
   </file>
   <file path="/home/spids/desafio/desafio-backend/src/product/product.test.js">
-    <testCase name="Productos GET /productos retorna todos los productos sin descuento" duration="33"/>
+    <testCase name="Productos GET /productos retorna todos los productos sin descuento" duration="36"/>
     <testCase name="Productos GET /productos/busqueda retorna todos los productos con descuento" duration="8"/>
-    <testCase name="Productos POST /productos/busqueda retorna un solo producto por ID" duration="13"/>
-    <testCase name="Productos POST /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo" duration="7"/>
+    <testCase name="Productos POST /productos/busqueda retorna un solo producto por ID" duration="15"/>
+    <testCase name="Productos POST /productos/busqueda retorna un producto con descuento tras cumplirse el palindromo" duration="4"/>
     <testCase name="Productos POST /productos/busqueda retorna un producto sin descuento tras no ser palimdromo" duration="5"/>
-    <testCase name="Productos POST /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400" duration="4"/>
-    <testCase name="Productos POST /productos retorna error 404 method not allowed" duration="3"/>
+    <testCase name="Productos POST /productos/busqueda criterio de busqueda con 2 o menos caracteres retorna error 400" duration="3"/>
+    <testCase name="Productos POST /productos retorna error 404 method not allowed" duration="2"/>
   </file>
 </testExecutions>

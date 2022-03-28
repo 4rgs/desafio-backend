@@ -1,4 +1,4 @@
-require('dotenv').config()
+
 const port = '9000' || process.env.PORT
 const express = require('express')
 const app = express()
@@ -7,13 +7,13 @@ const Product = require('./product/product')
 const { connect, getUri } = require('../db/db')
 const applyDiscount = require('../utils/applyDiscount')
 const isValidInput = require('../utils/isValidInput')
-
+require('dotenv').config()
 
 const whitelist = process.env.WHITE_LIST_CORS
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -73,12 +73,6 @@ app.post('/productos/busqueda', async (req, res) => {
 })
 
 ;(async () => {
-  if(process.env.NODE_ENV === 'test'){
-    const uri = await getUri()
-    await connect({ uri }).then(() => {
-      console.log("Express server is down, running on test mode");
-    })
-  }
   if (require.main === module) {
     const uri = await getUri()
     await connect({ uri }).then(
