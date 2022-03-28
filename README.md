@@ -34,7 +34,7 @@ Servicio API REST para el Desafio [![Quality Gate Status](https://sonarcloud.io/
 
 ## Deployment
 
-To deploy this proyecto first we need to deploy this repo and have Docker installed:
+To deploy this proyect first we need to deploy this repo and have Docker installed:
 ```bash
 git clone https://github.com/walmartdigital/products-db
 ```
@@ -72,6 +72,6 @@ npm run start
 - [@AlvaroGonzalez](https://github.com/SpidohCL)
 
 
-## Demo en Heroku (Failing)
+## Demo on Lab
 
-https://desafio-backend-ags.herokuapp.com/
+https://api.spids.cl
